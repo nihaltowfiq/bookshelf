@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gutendex Bookshelf</title>
+    <link rel="stylesheet" href="./styles/styles.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="wishlist.html">Wishlist</a>
+    </nav>
+
+    <header>
+      <h1>Gutendex Bookshelf</h1>
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Search books by title..."
+      />
+      <select id="genre-filter">
+        <option value="">Filter by genre</option>
+        <!-- Genres will be populated dynamically -->
+      </select>
+    </header>
+
+    <div id="book-list" class="book-list"></div>
+
+    <div id="pagination" class="pagination"></div>
+
+    <script src="./scripts/api.js"></script>
+    <script src="./scripts/dom.js"></script>
+    <script src="./scripts/app.js"></script>
+  </body>
+</html>
