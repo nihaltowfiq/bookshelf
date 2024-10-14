@@ -5,11 +5,30 @@ async function fetchBooks(page = 1, searchTerm = '', genre = '') {
   if (searchTerm) url += `&search=${searchTerm}`;
   if (genre) url += `&topic=${genre}`;
 
-  const response = await fetch(url);
-  const data = await response.json();
-  console.log(data);
+  try {
+    console.log('api loading...');
 
-  return data;
+    loader().on();
+    const response = await fetch(url);
+    if (!response.ok) throw Error(response.error);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    console.log('api loaded...');
+    loader().off();
+  }
 }
 
-// export { fetchBooks };
+function loader() {
+  const element = document.getElementById('loader');
+  return {
+    on: function () {
+      element.style.display = 'block';
+    },
+    off: function () {
+      element.style.display = 'none';
+    },
+  };
+}

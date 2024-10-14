@@ -1,6 +1,3 @@
-// import { fetchBooks } from './api';
-// import { displayBooks } from './dom';
-
 document.addEventListener('DOMContentLoaded', () => {
   loadBooks();
   handleSearch();
