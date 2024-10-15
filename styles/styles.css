@@ -9,11 +9,13 @@
 }
 
 .book-card {
-  border: 1px solid #ddd;
+  border: 1px solid var(--tertiary-light);
   margin: 10px;
   padding: 20px;
-  width: 100%;
+  width: 200px;
   text-align: center;
+  border-radius: 0.5rem;
+  background-color: var(--tertiary);
 }
 
 .book-card img {
@@ -47,8 +49,8 @@
   justify-content: center;
 }
 
-/* @media (max-width: 768px) {
+@media (max-width: 768px) {
   .book-card {
     width: 100%;
   }
-} */
+}
