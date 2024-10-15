@@ -12,6 +12,8 @@ async function fetchBooks(page = 1, searchTerm = '', genre = '') {
     const response = await fetch(url);
     if (!response.ok) throw Error(response.error);
     const data = await response.json();
+    console.log(data);
+
     return data;
   } catch (error) {
     console.log(error);

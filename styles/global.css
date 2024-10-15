@@ -1,0 +1,46 @@
+:root {
+  /* 0A1E41 - dark */
+  --primary-light: #355fa8;
+  --primary: #224075;
+
+  --secondary-light: #bcb4b4;
+  --secondary: #787878;
+
+  --tertiary-light: #f6f1ec;
+  --tertiary: #e0c4a9;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--tertiary-light);
+}
+
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 1.25rem;
+  padding-left: 1.25rem;
+}
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+@media (min-width: 1240px) {
+  .container {
+    max-width: 1240px;
+  }
+}

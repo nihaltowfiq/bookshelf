@@ -8,12 +8,13 @@
   </head>
   <body>
     <nav>
-      <a href="index.html">Home</a>
+      <h5 class="brand">BOOKSHELF</h5>
+      <a class="active" href="index.html">Home</a>
       <a href="wishlist.html">Wishlist</a>
     </nav>
 
-    <header>
-      <h1>Gutendex Bookshelf</h1>
+    <header class="container">
+      <h1>BOOKSHELF</h1>
       <input
         type="text"
         id="search-input"
@@ -21,19 +22,24 @@
       />
       <select id="genre-filter">
         <option value="">Filter by genre</option>
-        <!-- Genres will be populated dynamically -->
       </select>
     </header>
 
-    <div id="loader">
-      <div class="loader">
-        <img src="./assets/loader.svg" height="100px" width="100px" />
+    <!-- <main>
+      <div class="container">
+        <div id="loader">
+          <div class="loader">
+            <img src="./assets/loader.svg" height="100px" width="100px" />
+          </div>
+        </div>
+
+        <div id="book-list" class="book-list"></div>
+
+        <div id="pagination" class="pagination"></div>
       </div>
-    </div>
+    </main> -->
 
-    <div id="book-list" class="book-list"></div>
-
-    <div id="pagination" class="pagination"></div>
+    <footer class="footer"></footer>
 
     <script src="./scripts/api.js"></script>
     <script src="./scripts/dom.js"></script>
