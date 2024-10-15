@@ -1,17 +1,6 @@
 @import 'global.css';
 @import 'nav.css';
-
-header {
-  text-align: center;
-  margin: 20px;
-}
-
-input,
-select {
-  padding: 10px;
-  margin: 10px;
-  font-size: 1em;
-}
+@import 'header.css';
 
 .book-list {
   display: flex;
