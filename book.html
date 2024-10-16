@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Book Details - Bookshelf</title>
     <link rel="icon" href="./assets/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../styles/styles.css" />
   </head>
   <body>
     <nav>
@@ -14,16 +14,27 @@
       <a href="wishlist.html">Wishlist</a>
     </nav>
 
-    <header>
-      <h1 id="book-title">Book Title</h1>
-    </header>
+    <main>
+      <header>
+        <h1 id="book-title">Book Title</h1>
+      </header>
 
-    <div id="book-details">
-      <!-- Book details will be populated dynamically -->
-    </div>
+      <div id="book-details">
+        <!-- Book details will be populated dynamically -->
+      </div>
+    </main>
+
+    <footer>
+      <div class="inner">
+        developed by
+        <a target="_blank" href="https://github.com/nihaltowfiq">
+          Kazi Nihal Towfiq
+        </a>
+      </div>
+    </footer>
 
     <script src="../scripts/api.js"></script>
     <script src="../scripts/dom.js"></script>
-    <script src="../scripts/app.js"></script>
+    <script src="../scripts/book.js"></script>
   </body>
 </html>

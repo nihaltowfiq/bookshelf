@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="./styles/styles.css" />
   </head>
   <body>
-    <div>
-      <nav>
-        <h5 class="brand">BOOKSHELF</h5>
-        <a class="active" href="index.html">Home</a>
-        <a href="wishlist.html">Wishlist</a>
-      </nav>
+    <nav>
+      <h5 class="brand">BOOKSHELF</h5>
+      <a class="active" href="index.html">Home</a>
+      <a href="wishlist.html">Wishlist</a>
+    </nav>
 
-      <header class="container">
+    <main>
+      <header>
         <h1>BOOKSHELF</h1>
 
         <div class="actions">
@@ -53,26 +53,31 @@
         </div>
       </header>
 
-      <main>
-        <div id="loader">
-          <div class="loader">
-            <img src="./assets/loader.svg" height="100px" width="100px" />
-          </div>
+      <div id="loader">
+        <div class="loader">
+          <img src="./assets/loader.svg" height="100px" width="100px" />
         </div>
+      </div>
 
-        <div id="book-list" class="book-list"></div>
+      <div id="book-list" class="book-list"></div>
 
-        <!-- <div id="pagination" class="pagination"></div> -->
+      <!-- <div id="pagination" class="pagination"></div> -->
 
-        <div id="pagination">
-          <button id="prev-btn" class="pagination-btn">Previous</button>
-          <div id="page-numbers" class="pagination-numbers"></div>
-          <button id="next-btn" class="pagination-btn">Next</button>
-        </div>
-      </main>
+      <div id="pagination">
+        <button id="prev-btn" class="pagination-btn">Previous</button>
+        <div id="page-numbers" class="pagination-numbers"></div>
+        <button id="next-btn" class="pagination-btn">Next</button>
+      </div>
+    </main>
 
-      <footer class="footer"></footer>
-    </div>
+    <footer>
+      <div class="inner">
+        developed by
+        <a target="_blank" href="https://github.com/nihaltowfiq">
+          Kazi Nihal Towfiq
+        </a>
+      </div>
+    </footer>
 
     <script src="./scripts/data.js"></script>
     <script src="./scripts/api.js"></script>

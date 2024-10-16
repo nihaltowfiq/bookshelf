@@ -3,7 +3,8 @@ function displayBooks(books) {
   bookList.innerHTML = '';
 
   books.forEach((book) => {
-    const bookCard = document.createElement('div');
+    const bookCard = document.createElement('a');
+    bookCard.href = `./book.html?book=${book.id}`;
     bookCard.classList.add('book-card');
     bookCard.innerHTML = `
       <div class="img-wrapper">

@@ -27,6 +27,25 @@ nav .active {
   font-weight: 600;
 }
 
+main {
+  min-height: calc(
+    100vh - 261px
+  ) !important; /* nav height + footer height = 173px */
+}
+
+footer {
+  background-color: var(--primary);
+  padding: 3rem 1rem;
+  text-align: center;
+  color: white;
+  margin-top: 3rem;
+}
+
+footer > .inner > a {
+  font-weight: 400;
+  color: white;
+}
+
 @media (max-width: 768px) {
   nav {
     gap: 0.5rem;

@@ -1,9 +1,10 @@
 const apiBaseUrl = 'https://gutendex.com/books';
 
-async function fetchBooks(page = 1, searchTerm = '', genre = '') {
+async function fetchBooks({ page = 1, search = '', genre = '', id = '' }) {
   let url = `${apiBaseUrl}/?page=${page}`;
-  if (searchTerm) url += `&search=${searchTerm}`;
+  if (search) url += `&search=${search}`;
   if (genre) url += `&topic=${genre}`;
+  if (id) url += `&ids=${id}`;
 
   try {
     console.log('api loading...');

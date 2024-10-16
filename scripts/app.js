@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
   handleGenreFilter();
 });
 
-async function loadBooks(page = 1, searchTerm = '', genre = '') {
-  // const data = await fetchBooks(page, searchTerm, genre);
+async function loadBooks(page = 1, search = '', genre = '') {
+  // const data = await fetchBooks({page, search, genre});
   const data = mock_data;
   displayBooks(data.results);
   setupPagination(data.count, page);
