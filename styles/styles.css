@@ -70,6 +70,10 @@
   font-size: 1rem;
 }
 
+.book-card > .detail > .title:hover {
+  text-decoration: underline;
+}
+
 .book-card > .author {
   font-size: 0.9rem;
 }

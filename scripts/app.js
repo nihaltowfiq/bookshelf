@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   loadBooks();
   handleSearch();
-  handleGenreFilter();
+  // handleGenreFilter();
 });
 
 async function loadBooks(page = 1, search = '', genre = '') {
@@ -20,12 +20,12 @@ function handleSearch() {
   });
 }
 
-function handleGenreFilter() {
-  const genreFilter = document.getElementById('genre-filter');
-  genreFilter.addEventListener('change', () => {
-    loadBooks(1, '', genreFilter.value);
-  });
-}
+// function handleGenreFilter() {
+//   const genreFilter = document.getElementById('genre-filter');
+//   genreFilter.addEventListener('change', () => {
+//     loadBooks(1, '', genreFilter.value);
+//   });
+// }
 
 function setupPagination(totalCount, currentPage) {
   const pagination = document.getElementById('pagination');
@@ -42,17 +42,19 @@ function setupPagination(totalCount, currentPage) {
   }
 }
 
-function toggleWishlist(bookId) {
-  let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+function toggleWishlist(button) {
+  const book = JSON.parse(button.getAttribute('data-book'));
 
-  if (wishlist.includes(bookId)) {
-    wishlist = wishlist.filter((id) => id !== bookId);
+  const wishlist = storage().get('wishlist') || [];
+
+  if (wishlist.some((el) => el.id === book.id)) {
+    wishlist = wishlist.filter((el) => el.id !== book.id);
   } else {
-    wishlist.push(bookId);
+    wishlist.push(book);
   }
 
-  localStorage.setItem('wishlist', JSON.stringify(wishlist));
-  updateWishlistIcon(bookId);
+  storage().set('wishlist', wishlist);
+  // updateWishlistIcon(bookId);
 }
 
 function updateWishlistIcon(bookId) {
