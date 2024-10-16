@@ -2,6 +2,7 @@
 @import 'layout.css';
 @import 'header.css';
 @import 'pagination.css';
+@import 'book.css';
 
 .book-list {
   max-width: 1280px;
