@@ -1,0 +1,41 @@
+/* Basic styles for the pagination component */
+#pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination-btn {
+  padding: 10px 20px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+.pagination-btn:hover {
+  background-color: #eee;
+}
+
+.pagination-numbers {
+  display: flex;
+}
+
+.page-number {
+  margin: 0 5px;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+.page-number:hover {
+  background-color: #eee;
+}
+
+.page-number.active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}

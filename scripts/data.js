@@ -1,4 +1,4 @@
-const data = {
+const mock_data = {
   count: 74407,
   next: 'https://gutendex.com/books/?page=2',
   previous: null,

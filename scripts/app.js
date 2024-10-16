@@ -5,9 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function loadBooks(page = 1, searchTerm = '', genre = '') {
-  const data = await fetchBooks(page, searchTerm, genre);
+  // const data = await fetchBooks(page, searchTerm, genre);
+  const data = mock_data;
   displayBooks(data.results);
   setupPagination(data.count, page);
+
+  console.log(data);
 }
 
 function handleSearch() {
