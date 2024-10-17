@@ -9,20 +9,21 @@ nav {
   z-index: 10;
 }
 
-nav a {
+nav > a {
   color: white;
   text-decoration: none;
 }
 
-nav .brand {
+nav .brand a {
   color: white;
   margin: 0 1.25rem 0 0;
   font-weight: 800;
   letter-spacing: 0.15rem;
   text-decoration: none;
+  cursor: pointer;
 }
 
-nav .active {
+nav > .active {
   color: var(--tertiary);
   font-weight: 600;
 }
@@ -30,7 +31,7 @@ nav .active {
 main {
   min-height: calc(
     100vh - 261px
-  ) !important; /* nav height + footer height = 173px */
+  ) !important; /* nav height + footer height = 261px */
 }
 
 footer {

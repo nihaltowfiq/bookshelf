@@ -1,15 +1,20 @@
 function displayBooks(books) {
+  console.log('sdffffffffffff');
+
   const bookList = document.getElementById('book-list');
   bookList.innerHTML = '';
 
-  if (!books.length)
+  if (!books?.length)
     bookList.innerHTML = `
-        <p>No books found!</p>
-    `;
+        <p style="margin:2rem 0; text-align:center; color:var(--primary-light); font-weight:600">
+          No books found!
+        </p>
+      `;
 
   books.forEach((book) => {
     const bookCard = document.createElement('div');
     bookCard.classList.add('book-card');
+
     bookCard.innerHTML = `
       <div class="img-wrapper">
         <img src="${book.formats['image/jpeg']}" alt="${book.title}">

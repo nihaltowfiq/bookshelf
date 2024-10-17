@@ -49,6 +49,7 @@ h1 {
 
 .search-bar .close-btn {
   right: 1rem;
+  visibility: hidden;
 }
 
 .search-bar input:focus {

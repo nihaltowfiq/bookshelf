@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     handleSearch();
     // handleGenreFilter();
   }
+
+  displayActivePage();
 });
 
 function getPage() {
@@ -31,29 +33,47 @@ function getPage() {
   return page;
 }
 
-async function getBook(bookId) {
-  // const data = await fetchBooks({ id: bookId });
+function displayActivePage() {
+  const page = getPage();
 
-  displayBookDetails(mock_data?.['results']?.[0]);
+  const navLinks = document.querySelectorAll('nav a');
+
+  navLinks.forEach((link) => {
+    const linkPage = link
+      .getAttribute('href')
+      .replace('.html', '')
+      .replace('/', '');
+
+    if (linkPage === page || (page === 'home' && linkPage === 'index')) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+}
+
+async function getBook(bookId) {
+  const data = await fetchBooks({ id: bookId });
+  // const data = mock_data;
+
+  displayBookDetails(data?.['results']?.[0]);
 }
 
 async function loadBooks(page = 1, search = '', genre = '') {
-  // const data = await fetchBooks({page, search, genre});
-  const data = mock_data;
+  const data = await fetchBooks({ page, search, genre });
+  // const data = mock_data;
 
-  const finalData = getFinalData(data.results);
+  if (!data) return;
+
+  const finalData = getFinalData(data?.results);
 
   displayBooks(finalData);
-  setupPagination(data.count, page);
-
-  console.log(finalData);
-
+  // setupPagination(data.count, page);
   storeBook(finalData);
-
-  console.log(data);
 }
 
 function getFinalData(data) {
+  if (!data) return null;
   const wishlist = storage().get('wishlist');
   const final_data = data.map((el) => ({
     ...el,
@@ -69,9 +89,43 @@ function storeBook(data) {
 
 function handleSearch() {
   const searchInput = document.getElementById('search-input');
+
+  const debouncedSearch = debounce((value) => loadBooks(1, value), 500);
+
   searchInput.addEventListener('input', () => {
-    loadBooks(1, searchInput.value);
+    const clearBtn = document.querySelector('.search-bar .close-btn');
+    const isBtnHidden =
+      window.getComputedStyle(clearBtn).visibility === 'hidden';
+
+    if (searchInput.value.trim() !== '' && isBtnHidden) {
+      console.log('inside if');
+      clearBtn.style.visibility = 'visible';
+    } else if (searchInput.value.trim() === '' && !isBtnHidden) {
+      console.log('inside else');
+      clearBtn.style.visibility = 'hidden';
+    }
+
+    debouncedSearch(searchInput.value);
   });
+}
+
+function clearSearch() {
+  const clearBtn = document.querySelector('.search-bar .close-btn');
+  const searchInput = document.getElementById('search-input');
+  searchInput.value = '';
+  clearBtn.style.visibility = 'hidden';
+  loadBooks();
+}
+
+function debounce(fn, delay) {
+  let timeoutId;
+  return function (...args) {
+    clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
+  };
 }
 
 // function handleGenreFilter() {
@@ -97,17 +151,21 @@ function setupPagination(totalCount, currentPage) {
 }
 
 function toggleWishlist(bookId) {
+  console.log({ bookId });
+
   let books = storage('session').get('book-list');
   let book = books.find((el) => bookId === el.id);
 
+  console.log(book);
+
   let wishlist = storage().get('wishlist') || [];
 
-  if (wishlist.some((el) => el.id === book.id)) {
-    wishlist = wishlist.filter((el) => el.id !== book.id);
+  if (wishlist.some((el) => el.id === bookId)) {
+    wishlist = wishlist.filter((el) => el.id !== bookId);
     books = books.map((el) =>
       el.id === bookId ? { ...el, isWishlist: false } : el
     );
-    book.isWishlist = false;
+    if (book) book.isWishlist = false;
   } else {
     book.isWishlist = true;
     books = books.map((el) =>
