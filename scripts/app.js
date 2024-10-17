@@ -1,16 +1,70 @@
 document.addEventListener('DOMContentLoaded', () => {
-  loadBooks();
-  handleSearch();
-  // handleGenreFilter();
+  if (getPage() === 'wishlist') {
+    const wishlist = storage().get('wishlist');
+
+    displayBooks(wishlist);
+  } else if (getPage() === 'book') {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('book');
+
+    getBook(id);
+  } else if (getPage() === 'home') {
+    loadBooks();
+    handleSearch();
+    // handleGenreFilter();
+  }
 });
+
+function getPage() {
+  const pathname = window.location.pathname;
+
+  let page = 'unknown';
+
+  if (pathname.includes('wishlist')) {
+    page = 'wishlist';
+  } else if (pathname.includes('book')) {
+    page = 'book';
+  } else if (pathname.includes('index') || pathname === '/') {
+    page = 'home';
+  }
+
+  return page;
+}
+
+async function getBook(bookId) {
+  // const data = await fetchBooks({ id: bookId });
+
+  displayBookDetails(mock_data?.['results']?.[0]);
+}
 
 async function loadBooks(page = 1, search = '', genre = '') {
   // const data = await fetchBooks({page, search, genre});
   const data = mock_data;
-  displayBooks(data.results);
+
+  const finalData = getFinalData(data.results);
+
+  displayBooks(finalData);
   setupPagination(data.count, page);
 
+  console.log(finalData);
+
+  storeBook(finalData);
+
   console.log(data);
+}
+
+function getFinalData(data) {
+  const wishlist = storage().get('wishlist');
+  const final_data = data.map((el) => ({
+    ...el,
+    isWishlist: !!wishlist?.some((e) => e.id === el.id),
+  }));
+
+  return final_data;
+}
+
+function storeBook(data) {
+  storage('session').set('book-list', data);
 }
 
 function handleSearch() {
@@ -42,19 +96,36 @@ function setupPagination(totalCount, currentPage) {
   }
 }
 
-function toggleWishlist(button) {
-  const book = JSON.parse(button.getAttribute('data-book'));
+function toggleWishlist(bookId) {
+  let books = storage('session').get('book-list');
+  let book = books.find((el) => bookId === el.id);
 
-  const wishlist = storage().get('wishlist') || [];
+  let wishlist = storage().get('wishlist') || [];
 
   if (wishlist.some((el) => el.id === book.id)) {
     wishlist = wishlist.filter((el) => el.id !== book.id);
+    books = books.map((el) =>
+      el.id === bookId ? { ...el, isWishlist: false } : el
+    );
+    book.isWishlist = false;
   } else {
+    book.isWishlist = true;
+    books = books.map((el) =>
+      el.id === bookId ? { ...el, isWishlist: true } : el
+    );
     wishlist.push(book);
   }
 
+  storage('session').set('book-list', books);
   storage().set('wishlist', wishlist);
-  // updateWishlistIcon(bookId);
+
+  if (getPage() === 'wishlist') {
+    displayBooks(wishlist);
+  } else if (getPage() === 'book') {
+    displayBookDetails(book);
+  } else {
+    displayBooks(books);
+  }
 }
 
 function updateWishlistIcon(bookId) {

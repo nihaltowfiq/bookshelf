@@ -2,6 +2,11 @@ function displayBooks(books) {
   const bookList = document.getElementById('book-list');
   bookList.innerHTML = '';
 
+  if (!books.length)
+    bookList.innerHTML = `
+        <p>No books found!</p>
+    `;
+
   books.forEach((book) => {
     const bookCard = document.createElement('div');
     bookCard.classList.add('book-card');
@@ -50,10 +55,12 @@ function displayGenres(genres) {
   });
 }
 
-function loadBookDetails(book) {
+function displayBookDetails(book) {
   const bookDetails = document.getElementById('book-details');
 
-  console.log(book);
+  book.isWishlist = storage()
+    .get('wishlist')
+    ?.some((el) => el.id === book.id);
 
   const html = `
     <div class="cover">
@@ -112,23 +119,5 @@ function loadBookDetails(book) {
     </div>
   `;
 
-  // ${
-  //   bookshelves && (
-  //     <p class="book-bookshelves">Bookshelves: ${bookshelves.join(', ')}</p>
-  //   )
-  // }
-
   bookDetails.innerHTML = html;
-
-  const bookCover = document.getElementById('book-cover');
-  bookCover.src = book.formats['image/jpeg'];
-
-  const linksContainer = document.getElementById('book-links');
-  Object.entries(book.formats).forEach(([type, url]) => {
-    const link = document.createElement('a');
-    link.href = url;
-    link.textContent = `Download ${type}`;
-    link.target = '_blank';
-    linksContainer.appendChild(link);
-  });
 }

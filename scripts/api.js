@@ -13,7 +13,6 @@ async function fetchBooks({ page = 1, search = '', genre = '', id = '' }) {
     const response = await fetch(url);
     if (!response.ok) throw Error(response.error);
     const data = await response.json();
-    console.log(data);
 
     return data;
   } catch (error) {
