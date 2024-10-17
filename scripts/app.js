@@ -1,3 +1,9 @@
+const perPage = 32;
+let currentSearch = '';
+let currentGenre = '';
+let currentPage = 1;
+let totalPage = 1;
+
 document.addEventListener('DOMContentLoaded', () => {
   if (getPage() === 'wishlist') {
     const wishlist = storage().get('wishlist');
@@ -11,7 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
   } else if (getPage() === 'home') {
     loadBooks();
     handleSearch();
-    // handleGenreFilter();
+    handleGenreFilter();
+    displayFilter(filterData);
   }
 
   displayActivePage();
@@ -54,22 +61,27 @@ function displayActivePage() {
 
 async function getBook(bookId) {
   const data = await fetchBooks({ id: bookId });
-  // const data = mock_data;
 
   displayBookDetails(data?.['results']?.[0]);
 }
 
-async function loadBooks(page = 1, search = '', genre = '') {
+async function loadBooks(page = currentPage, search = currentSearch, genre) {
   const data = await fetchBooks({ page, search, genre });
-  // const data = mock_data;
 
   if (!data) return;
 
   const finalData = getFinalData(data?.results);
 
+  totalPage = Math.ceil(data.count / perPage);
+
   displayBooks(finalData);
-  // setupPagination(data.count, page);
   storeBook(finalData);
+
+  if (data.count > 0) {
+    displayPagination(page);
+  } else {
+    clearPagination();
+  }
 }
 
 function getFinalData(data) {
@@ -90,7 +102,9 @@ function storeBook(data) {
 function handleSearch() {
   const searchInput = document.getElementById('search-input');
 
-  const debouncedSearch = debounce((value) => loadBooks(1, value), 500);
+  const debouncedSearch = debounce((value) => {
+    loadBooks(1, value);
+  }, 500);
 
   searchInput.addEventListener('input', () => {
     const clearBtn = document.querySelector('.search-bar .close-btn');
@@ -128,27 +142,51 @@ function debounce(fn, delay) {
   };
 }
 
-// function handleGenreFilter() {
-//   const genreFilter = document.getElementById('genre-filter');
-//   genreFilter.addEventListener('change', () => {
-//     loadBooks(1, '', genreFilter.value);
-//   });
-// }
-
-function setupPagination(totalCount, currentPage) {
-  const pagination = document.getElementById('pagination');
-  pagination.innerHTML = '';
-
-  const totalPages = Math.ceil(totalCount / 32); // Assuming 32 books per page
-
-  for (let i = 1; i <= totalPages; i++) {
-    const pageButton = document.createElement('button');
-    pageButton.textContent = i;
-    if (i === currentPage) pageButton.disabled = true;
-    pageButton.addEventListener('click', () => loadBooks(i));
-    pagination.appendChild(pageButton);
-  }
+function handleGenreFilter() {
+  const filter = document.getElementById('filter');
+  filter.addEventListener('change', () => {
+    loadBooks(1, '', filter.value);
+  });
 }
+
+const paginationRanges = (currentPage, totalPage) => {
+  const rangeWithDots = [];
+
+  // If total pages are 5 or less, return the full range
+  if (totalPage <= 5) {
+    for (let i = 1; i <= totalPage; i++) {
+      rangeWithDots.push(i);
+    }
+  } else {
+    // Total pages greater than 5
+    if (currentPage <= 3) {
+      // Show first 3 pages, ..., last page
+      rangeWithDots.push(1, 2, 3, '...', totalPage);
+    } else if (currentPage >= totalPage - 2) {
+      // Show first page, ..., last 3 pages
+      rangeWithDots.push(1, '...', totalPage - 2, totalPage - 1, totalPage);
+    } else {
+      // Show first page, ..., current-1, current, current+1, ..., last page
+      rangeWithDots.push(
+        1,
+        '...',
+        currentPage - 1,
+        currentPage,
+        currentPage + 1,
+        '...',
+        totalPage
+      );
+    }
+  }
+
+  return rangeWithDots;
+};
+
+const changePage = (page) => {
+  if (page < 1 || page > totalPage) return;
+  currentPage = page;
+  loadBooks(page);
+};
 
 function toggleWishlist(bookId) {
   console.log({ bookId });
@@ -183,18 +221,5 @@ function toggleWishlist(bookId) {
     displayBookDetails(book);
   } else {
     displayBooks(books);
-  }
-}
-
-function updateWishlistIcon(bookId) {
-  const button = document.querySelector(
-    `button[onclick="toggleWishlist(${bookId})"]`
-  );
-  let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-
-  if (wishlist.includes(bookId)) {
-    button.classList.add('wishlisted');
-  } else {
-    button.classList.remove('wishlisted');
   }
 }

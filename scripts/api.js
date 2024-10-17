@@ -18,7 +18,7 @@ async function fetchBooks({ page = 1, search = '', genre = '', id = '' }) {
 
   try {
     console.log('api loading...');
-    loader().on();
+    displayLoader().on();
 
     const response = await fetch(url, { signal });
 
@@ -31,23 +31,12 @@ async function fetchBooks({ page = 1, search = '', genre = '', id = '' }) {
       console.log('Request was aborted');
     } else {
       console.log(error);
+      displayError();
     }
   } finally {
     if (currentRequest === currentAbortController) {
-      loader().off();
+      displayLoader().off();
       console.log('api loaded...');
     }
   }
-}
-
-function loader() {
-  const element = document.getElementById('loader');
-  return {
-    on: function () {
-      element.style.display = 'block';
-    },
-    off: function () {
-      element.style.display = 'none';
-    },
-  };
 }

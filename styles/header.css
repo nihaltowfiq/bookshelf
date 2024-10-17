@@ -59,8 +59,8 @@ h1 {
 
 select {
   appearance: none;
-  -moz-appearance: none; /* Remove default arrow (Firefox) */
-  -webkit-appearance: none; /* Remove default arrow (Safari and Chrome) */
+  -moz-appearance: none;
+  -webkit-appearance: none;
   background-size: 18px;
   border-radius: 0.85rem;
   padding: 0.75rem 2rem 0.75rem 1rem;

@@ -1,41 +1,42 @@
-/* Basic styles for the pagination component */
-#pagination {
+.pagination {
   display: flex;
+  padding: 0 1rem;
+  margin: 1rem auto;
   justify-content: center;
-  align-items: center;
-  margin-top: 20px;
+  list-style-type: none;
 }
 
-.pagination-btn {
-  padding: 10px 20px;
-  margin: 0 5px;
-  border: 1px solid #ccc;
-  background-color: #f9f9f9;
+.pagination li {
+  margin: 0 0.2rem;
+  padding: 0.25rem 0.5rem;
   cursor: pointer;
-}
-
-.pagination-btn:hover {
-  background-color: #eee;
-}
-
-.pagination-numbers {
+  border-radius: 0.5rem;
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.page-number {
-  margin: 0 5px;
-  padding: 10px 15px;
-  border: 1px solid #ccc;
-  background-color: #f9f9f9;
-  cursor: pointer;
+.pagination li:hover {
+  background-color: var(--tertiary-extra);
 }
 
-.page-number:hover {
-  background-color: #eee;
+.pagination li.active {
+  background-color: var(--primary);
+  color: white;
 }
 
-.page-number.active {
-  background-color: #007bff;
-  color: #fff;
-  border-color: #007bff;
+.pagination li.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.pagination li.not-clickable {
+  pointer-events: none;
+  background-color: var(--tertiary-light);
+}
+
+@media (max-width: 640px) {
+  .pagination li {
+    margin: 0;
+  }
 }

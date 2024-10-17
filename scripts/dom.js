@@ -1,7 +1,10 @@
-function displayBooks(books) {
-  console.log('sdffffffffffff');
+const bookList = document.getElementById('book-list');
+const bookDetails = document.getElementById('book-details');
+const loader = document.getElementById('loader');
+const pagination = document.getElementById('pagination');
+const filter = document.getElementById('filter');
 
-  const bookList = document.getElementById('book-list');
+function displayBooks(books) {
   bookList.innerHTML = '';
 
   if (!books?.length)
@@ -50,19 +53,16 @@ function displayBooks(books) {
   });
 }
 
-function displayGenres(genres) {
-  const genreFilter = document.getElementById('genre-filter');
-  genres.forEach((genre) => {
+function displayFilter(data) {
+  data.forEach((el) => {
     const option = document.createElement('option');
-    option.value = genre;
-    option.textContent = genre;
-    genreFilter.appendChild(option);
+    option.value = el;
+    option.textContent = el;
+    filter.appendChild(option);
   });
 }
 
 function displayBookDetails(book) {
-  const bookDetails = document.getElementById('book-details');
-
   book.isWishlist = storage()
     .get('wishlist')
     ?.some((el) => el.id === book.id);
@@ -125,4 +125,57 @@ function displayBookDetails(book) {
   `;
 
   bookDetails.innerHTML = html;
+}
+
+function displayLoader() {
+  return {
+    on: function () {
+      loader.style.display = 'block';
+    },
+    off: function () {
+      loader.style.display = 'none';
+    },
+  };
+}
+
+function displayError() {
+  bookList.innerHTML = `
+        <p style="margin:2rem 0; text-align:center; color:var(--primary-light); font-weight:600">
+          Something went wrong!
+        </p>
+      `;
+}
+
+function displayPagination(currentPage) {
+  pagination.innerHTML = '';
+
+  const prevLi = document.createElement('li');
+  prevLi.innerText = 'Prev';
+  prevLi.className = currentPage === 1 ? 'disabled' : '';
+  prevLi.addEventListener('click', () => changePage(currentPage - 1));
+  pagination.appendChild(prevLi);
+
+  const pages = paginationRanges(currentPage, totalPage);
+  pages.forEach((page) => {
+    const li = document.createElement('li');
+    li.innerText = page;
+    li.className = page === currentPage ? 'active' : '';
+    if (page !== '...') {
+      li.addEventListener('click', () => changePage(page));
+    } else {
+      li.classList.add('not-clickable');
+    }
+
+    pagination.appendChild(li);
+  });
+
+  const nextLi = document.createElement('li');
+  nextLi.innerText = 'Next';
+  nextLi.className = currentPage === totalPage ? 'disabled' : '';
+  nextLi.addEventListener('click', () => changePage(currentPage + 1));
+  pagination.appendChild(nextLi);
+}
+
+function clearPagination() {
+  pagination.innerHTML = '';
 }

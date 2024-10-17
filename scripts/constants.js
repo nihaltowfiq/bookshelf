@@ -1,0 +1,16 @@
+const filterData = [
+  'Art',
+  'Fiction',
+  'Poetry',
+  'Horror',
+  'Politics',
+  'Philosophy',
+  'Sociology',
+  'Fantasy',
+  'Travel',
+  'Physics',
+  'Music',
+  'Technology',
+  'Engineering',
+  'History',
+];

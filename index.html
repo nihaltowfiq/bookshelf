@@ -46,11 +46,8 @@
             </button>
           </div>
 
-          <select id="filter">
-            <option value="">Filter by genre</option>
-            <option value="">Filter by genre</option>
-            <option value="">Filter by genre</option>
-            <option value="">Filter by genre</option>
+          <select id="filter" aria-placeholder="Filter">
+            <option value="">Select a genre</option>
           </select>
         </div>
       </header>
@@ -63,13 +60,7 @@
 
       <div id="book-list" class="book-list"></div>
 
-      <!-- <div id="pagination" class="pagination"></div> -->
-
-      <div id="pagination">
-        <button id="prev-btn" class="pagination-btn">Previous</button>
-        <div id="page-numbers" class="pagination-numbers"></div>
-        <button id="next-btn" class="pagination-btn">Next</button>
-      </div>
+      <ul class="pagination" id="pagination"></ul>
     </main>
 
     <footer>
@@ -81,7 +72,7 @@
       </div>
     </footer>
 
-    <script src="./scripts/data.js"></script>
+    <script src="./scripts/constants.js"></script>
     <script src="./scripts/api.js"></script>
     <script src="../scripts/storage.js"></script>
     <script src="./scripts/dom.js"></script>
