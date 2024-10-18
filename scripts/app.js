@@ -82,6 +82,7 @@ async function loadBooks() {
   totalPage = Math.ceil(data.count / perPage);
 
   displayBooks(finalData);
+  setBookList(finalData);
 
   // setTimeout: to match with book-list animation
   setTimeout(() => {
@@ -237,11 +238,11 @@ function toggleWishlist(bookId) {
   storage().set('wishlist', wishlist);
 
   if (getPage() === 'wishlist') {
-    displayBooks(wishlist);
+    displayBooks(wishlist, false);
   } else if (getPage() === 'book') {
     displayBookDetails(book);
   } else {
-    displayBooks(books);
+    displayBooks(books, false);
   }
 }
 

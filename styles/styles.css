@@ -97,6 +97,9 @@ select:focus {
   border-radius: 0.5rem;
   background-color: white;
   border: 1px solid var(--tertiary-light);
+}
+
+.book-card.fade-in {
   opacity: 0;
   animation: fadeIn 0.5s forwards;
 }
