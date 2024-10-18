@@ -90,7 +90,7 @@ async function loadBooks() {
     } else {
       clearPagination();
     }
-  }, 600);
+  }, 700);
 }
 
 function addWishlistStatus(data) {
@@ -202,8 +202,16 @@ const changePage = (page) => {
   if (page < 1 || page > totalPage) return;
   currentPage = page;
   setQuery({ page });
+  scrollToTop();
   loadBooks();
 };
+
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
+}
 
 function toggleWishlist(bookId) {
   let books = storage('session').get('book-list');

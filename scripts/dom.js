@@ -60,7 +60,7 @@ function displayBooks(books) {
         bookList.appendChild(bookCard);
       });
     }
-  }, 700);
+  }, 500);
 }
 
 function displayFilter(data) {
