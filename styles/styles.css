@@ -17,6 +17,7 @@ h1 {
   font-size: 1.5rem;
 }
 
+/* Action Section Styling  */
 .actions {
   display: flex;
   justify-content: center;
@@ -62,7 +63,11 @@ h1 {
   background-color: white;
 }
 
-select {
+.filter-bar {
+  position: relative;
+}
+
+.filter {
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
@@ -74,9 +79,23 @@ select {
     no-repeat right 10px center;
 }
 
-select:focus {
+.filter:focus {
   border-color: var(--primary);
   background-color: white;
+}
+
+.filter-bar .close-filter {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -1.5rem;
+  visibility: hidden;
+}
+
+.filter-bar .close-filter img {
+  border-radius: 100%;
+  text-align: center;
+  border: 2px solid var(--secondary-light);
 }
 
 /* Book List Section Styling */

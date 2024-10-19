@@ -73,9 +73,10 @@ function renderBooks(books, animated) {
           </a>
         </h4>        
       </div>
-      <p class="author"><span>Author:</span> ${book.authors
-        .map((a) => a.name)
-        .join(', ')}</p>
+      <p class="author">
+        <span>Author:</span> 
+        ${book.authors.map((a) => a.name).join(', ')}
+      </p>      
     `;
 
     bookList.appendChild(bookCard);
@@ -136,7 +137,7 @@ function displayBookDetails(book) {
       ${
         book?.bookshelves?.length
           ? `<div class="badge-wrapper">
-                <span class="title">Bookshelves: </span>
+                <span class="title">Genre: </span>
                 <div>
                   ${book.bookshelves
                     .map((el) => `<span class="badge">${el}</span>`)

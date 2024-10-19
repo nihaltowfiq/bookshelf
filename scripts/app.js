@@ -158,12 +158,32 @@ function debounce(fn, delay) {
 
 function handleGenreFilter() {
   const filter = document.getElementById('filter');
+
   filter.addEventListener('change', () => {
+    const clearBtn = document.querySelector('.filter-bar .close-filter');
+    const isBtnHidden =
+      window.getComputedStyle(clearBtn).visibility === 'hidden';
+
+    if (filter.value.trim() !== '' && isBtnHidden) {
+      clearBtn.style.visibility = 'visible';
+    } else if (filter.value.trim() === '' && !isBtnHidden) {
+      clearBtn.style.visibility = 'hidden';
+    }
+
     currentFilter = filter.value;
     currentPage = 1;
     setQuery({ page: 1, filter: filter.value });
     loadBooks();
   });
+}
+
+function clearFilter() {
+  const clearBtn = document.querySelector('.filter-bar .close-filter');
+  const filter = document.getElementById('filter');
+  filter.value = '';
+  setQuery({ filter: filter.value });
+  clearBtn.style.visibility = 'hidden';
+  loadBooks();
 }
 
 const paginationRanges = (currentPage, totalPage) => {
@@ -261,6 +281,10 @@ function updateQueryOnInterface() {
 
   if (currentSearch?.trim()?.length > 0) {
     const clearBtn = document.querySelector('.search-bar .close-btn');
+    clearBtn.style.visibility = 'visible';
+  }
+  if (currentFilter?.trim()?.length > 0) {
+    const clearBtn = document.querySelector('.filter-bar .close-filter');
     clearBtn.style.visibility = 'visible';
   }
 }

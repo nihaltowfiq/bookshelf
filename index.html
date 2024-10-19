@@ -46,9 +46,20 @@
             </button>
           </div>
 
-          <select id="filter" aria-placeholder="Filter">
-            <option value="">Select a genre</option>
-          </select>
+          <div class="filter-bar">
+            <select id="filter" class="filter">
+              <option value="">Select a genre</option>
+            </select>
+
+            <button class="close-filter" onclick="clearFilter()">
+              <img
+                class="close"
+                src="./assets/close.svg"
+                height="18px"
+                width="18px"
+              />
+            </button>
+          </div>
         </div>
       </header>
 
