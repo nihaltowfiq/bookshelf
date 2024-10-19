@@ -45,7 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function getPage() {
-  const pathname = window.location.pathname;
+  let pathname = window.location.pathname;
+  pathname = pathname.split('/bookshelf')?.[1] || '/'; // only for github-pages deployment
 
   let page = 'unknown';
 
